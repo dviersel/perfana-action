@@ -14,13 +14,13 @@ try {
 
     console.log("Let's do this!")
 
-    console.log(exec.exec("ls -la"))
+    console.log(exec.exec("ls -la /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha"))
 
     console.log(exec.exec("pwd"))
 
-    exec.exec("chmod 755 ./dist/bin/perfana-cli.*")
-    console.log(exec.exec("./dist/bin/perfana-cli.kt"))
-    console.log(exec.exec("./dist/bin/perfana-cli.rt"))
+    exec.exec("chmod 755 /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.*")
+    console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.kt"))
+    console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.rt"))
 
 } catch (error) {
     core.setFailed(error.message);
