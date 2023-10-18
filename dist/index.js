@@ -71,7 +71,7 @@ try {
     // const payload = JSON.stringify(github.context.payload, undefined, 2)
     // console.log(`The event payload: ${payload}`);
     console.log("Let's do this!")
-    console.log(core.run("echo 'Hello world!"))
+    console.log(core.run("echo 'Hello world!'"))
     console.log(core.run("ls -al"))
 
 } catch (error) {
