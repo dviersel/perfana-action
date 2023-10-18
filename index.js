@@ -18,7 +18,7 @@ try {
 
     // console.log(exec.exec("pwd"))
 
-    exec.exec("chmod 755 /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/*")
+    // exec.exec("chmod 755 /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/*")
     console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.kt"))
     console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.rt"))
 
