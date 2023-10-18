@@ -11,11 +11,16 @@ try {
     // Get the JSON webhook payload for the event that triggered the workflow
     // const payload = JSON.stringify(github.context.payload, undefined, 2)
     // console.log(`The event payload: ${payload}`);
+
     console.log("Let's do this!")
 
     console.log(exec.exec("ls -la"))
 
     console.log(exec.exec("pwd"))
+
+    exec.exec("chmod 755 ./dist/bin/perfana-cli.*")
+    console.log(exec.exec("./dist/bin/perfana-cli.kt"))
+    console.log(exec.exec("./dist/bin/perfana-cli.rt"))
 
 } catch (error) {
     core.setFailed(error.message);
