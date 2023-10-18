@@ -10,6 +10,9 @@ try {
     // Get the JSON webhook payload for the event that triggered the workflow
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
+
+    core.run("echo 'Hello world!")
+    core.run("ls -al")
 } catch (error) {
     core.setFailed(error.message);
 }
