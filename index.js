@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const exec = require('@actions/exec');
 const github = require('@actions/github');
 
 try {
@@ -11,8 +12,10 @@ try {
     // const payload = JSON.stringify(github.context.payload, undefined, 2)
     // console.log(`The event payload: ${payload}`);
     console.log("Let's do this!")
-    console.log(core.run("echo 'Hello world!'"))
-    console.log(core.run("ls -al"))
+
+    console.log(exec.exec("ls -la"))
+
+    console.log(exec.exec("pwd"))
 
 } catch (error) {
     core.setFailed(error.message);
