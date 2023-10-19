@@ -18,8 +18,12 @@ try {
     // console.log(exec.exec("ls -la /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin"))
     console.log(exec.exec("ls -la"))
 
-    console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.kt"))
-    console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.rt"))
+    console.log(github.context.action)
+
+    const actionVersion = "v0.1-alpha-0"
+    const actionPath = `/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/`
+    console.log(exec.exec(` [[ -f ${actionPath}/perfana-cli.kt ]] && ${actionPath}/perfana-cli.kt || echo "Cannot find:\n${actionPath}/perfana-cli.kt"`))
+    console.log(exec.exec(` [[ -f ${actionPath}/perfana-cli.rt ]] && ${actionPath}/perfana-cli.rt || echo "Cannot find:\n${actionPath}/perfana-cli.rt"`))
 
     const configFile = core.getInput('config');
     console.log(`Config file: ${configFile}`);
