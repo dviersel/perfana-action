@@ -1,0 +1,134 @@
+# Perfana Secure Gateway (PSG) proxies traffic between client and Perfana Cloud
+# by mutual TLS connections in order to provide optimal security in an easy way.
+
+# PAP uses official nginx image.
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+replicaCount: 1
+
+# The URL to connect to Perfana Cloud.
+perfanaURL: {{perfanaUrl}}
+
+# basicAuth is optional and used for authentication from client components to PAP.
+basicAuth:
+  enabled: false
+
+# basicAuthSecret is used for authentication from client to PAP.
+# If security is paramount, create and apply basicAuthSecret manually like below.
+# Use "htpasswd -Bn <username> | base64 -w0" to generate data.htpasswd.
+#
+# apiVersion: v1
+# kind: Secret
+# type: Opaque
+# metadata:
+#   name: \{{ .Values.basicAuthSecret.name }}
+# data:
+#   htpasswd: <htpasswd-result>
+basicAuthSecret:
+  # If not set, name is generated using the fullname template appended with "-basic-auth".
+  # For example "perfana-secure-gateway-basic-auth".
+  name: 
+  create: false
+#  username: <username>
+#  password: <password>
+ 
+# tlsAuthSecret holds private key and client certificate signed by Perfana to guarantee
+# secure mTLS connection between PAP and Perfana Cloud over internet.
+# If security is paramount, create and apply tlsAuthSecret manually like below.
+#
+# apiVersion: v1
+# kind: Secret
+# type: kubernetes.io/tls
+# metadata:
+#   name: \{{ .Values.tlsAuthSecret.name }}
+# data:
+#   tls.key: <base64 encoded PEM private key>
+#   tls.crt: <base64 encoded PEM client certificate>
+tlsAuthSecret:
+  # If not set, name is generated using the fullname template appended with "-tls-auth".
+  # For example "perfana-secure-gateway-tls-auth".
+  name: 
+  create: true
+  secretData:
+    # PEM encoded private key. Warning: sensitive data only known by client.
+    # privateKey: |
+    #   -----BEGIN RSA PRIVATE KEY-----
+    #   <snip>
+    #   -----END RSA PRIVATE KEY-----
+    privateKey: |
+{{{ privateKey }}}
+    # PEM encoded client certificate signed by Perfana.
+    # certificate: |
+    #   -----BEGIN CERTIFICATE-----
+    #   <snip>
+    #   -----END CERTIFICATE-----
+    certificate: |
+{{{ certificate }}}
+# Creates CiliumNetworkPolicy for egress openings
+ciliumNetworkPolicy:
+  create: false
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 101
+  runAsGroup: 101
+  seccompProfile:
+    type: RuntimeDefault
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className:
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: {{psgHostname}}.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: perfana-secure-gateway-tls
+  #    hosts:
+  #      - perfana-secure-gateway.local
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+

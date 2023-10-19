@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>{{groupId}}</groupId>
+    <artifactId>{{artifactId}}</artifactId>
+    <version>{{version}}</version>
+
+    <properties>
+
+        <encoding>UTF-8</encoding>
+
+        <!-- dependency versioning -->
+        {{#jmeterConfig}}<events-jmeter-maven-plugin.version>3.7.0-events-1</events-jmeter-maven-plugin.version>{{/jmeterConfig}}
+        {{#gatlingConfig}}<events-gatling-maven-plugin.version>4.3.0-events-1</events-gatling-maven-plugin.version>
+        <gatling.version>3.9.5</gatling.version>
+        <kotlin.version>1.9.10</kotlin.version>
+        <scala-maven-plugin.version>4.8.0</scala-maven-plugin.version>{{/gatlingConfig}}
+        <perfana-java-client.version>[3.0.0,3.1.0)</perfana-java-client.version>{{#wiremockConfig}}
+        <test-events-wiremock.version>[3.0.0,3.1.0)</test-events-wiremock.version>{{/wiremockConfig}}{{#springBootConfig}}
+        <test-events-springboot.version>[3.0.0,3.1.0)</test-events-springboot.version>{{/springBootConfig}}
+        <test-events-test-run-config-command.version>[3.0.0,3.1.0)</test-events-test-run-config-command.version>
+        <test-events-command-runner.version>[3.0.0,3.1.0)</test-events-command-runner.version>
+
+    	<perfanaUrl>{{perfanaUrl}}</perfanaUrl>
+
+        <!-- By default Jenkins build Url is used -->
+        <CIBuildResultsUrl>${BUILD_URL}</CIBuildResultsUrl>
+
+        <!-- By default no proxy is used -->
+        <useProxy>false</useProxy>
+
+        <!-- By default debug mode is off -->
+        <debug>false</debug>
+
+        <!-- By default assert test results -->
+        <assertResultsEnabled>true</assertResultsEnabled>
+
+        <!-- By default send data to perfana -->
+        <perfanaEnabled>true</perfanaEnabled>{{#wiremockConfig}}
+
+        <!-- By default disable wiremock -->
+        <wiremockEnabled>false</wiremockEnabled>
+        <wiremockUrl>{{wiremockUrl}}</wiremockUrl>{{/wiremockConfig}}
+
+        <!-- By default enable events -->
+        <eventsEnabled>true</eventsEnabled>
+
+	    <!-- Add event scheduler script here -->
+	    <eventScheduleScript>{{ eventScheduleScript }}</eventScheduleScript>
+
+        <!-- Default load settings -->
+        <initialUsersPerSecond>1</initialUsersPerSecond>
+        <targetConcurrency>1</targetConcurrency>
+        <rampupTimeInSeconds>30</rampupTimeInSeconds>
+        <constantLoadTimeInSeconds>90</constantLoadTimeInSeconds>
+
+        <!-- Settings for the Perfana test runs -->
+    	<systemUnderTest>{{ sutConfig.systemUnderTest }}</systemUnderTest>
+        <version>{{ sutConfig.version }}</version>
+        <tags>{{#tags}}{{.}}{{#unless @last}},{{/unless}}{{/tags}}</tags>
+        <apiKey>{{{ apiKey }}}</apiKey>
+        <influxUrl>{{ influxUrl }}</influxUrl>
+    </properties>
+
+    {{#gatlingConfig}}<dependencies>
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <version>${gatling.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>{{/gatlingConfig}}
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <id>timestamp-property</id>
+                        <goals>
+                            <goal>timestamp-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>build.time</name>
+                            <pattern>yyyyMMdd-HHmmss</pattern>
+                            <timeZone>CET</timeZone>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>{{#jmeterConfig}}
+{{> pom.jmeter.xml }}{{/jmeterConfig}}{{#gatlingConfig}}
+{{> pom.gatling.xml }}{{/gatlingConfig}}
+        </plugins>
+    </build>
+
+    <profiles>
+
+	    <!-- environment profiles -->
+        <profile>
+            <id>test-env-default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <testEnvironment>{{ sutConfig.testEnvironment }}</testEnvironment>
+            </properties>
+        </profile>
+
+	    <!-- test type profiles -->
+        <profile>
+            <id>test-type-load</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <workload>{{ sutConfig.workload }}</workload>
+                <initialUsersPerSecond>1</initialUsersPerSecond>
+                <targetConcurrency>10</targetConcurrency>
+                <rampupTimeInSeconds>10</rampupTimeInSeconds>
+                <constantLoadTimeInSeconds>90</constantLoadTimeInSeconds>
+            </properties>
+        </profile>
+
+    </profiles>
+</project>

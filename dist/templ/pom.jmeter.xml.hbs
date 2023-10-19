@@ -1,0 +1,51 @@
+            <plugin>
+                <groupId>io.perfana</groupId>
+                <artifactId>events-jmeter-maven-plugin</artifactId>
+                <version>${events-jmeter-maven-plugin.version}</version>
+                <executions>
+                    <!--- needed to generate target/config.json -->
+                    <execution>
+                        <id>configuration</id>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                    </execution>
+                    <!-- Run JMeter tests -->
+                    <execution>
+                        <id>jmeter-tests</id>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                    </execution>
+                    <!-- Fail build on errors in test -->
+                    <execution>
+                        <id>jmeter-check-results</id>
+                        <goals>
+                            <goal>results</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- disable the failures check from jmeter plugin -->
+                    <ignoreResultFailures>true</ignoreResultFailures>
+                    <propertiesUser>
+                        <test.testRunId>${testRunId}</test.testRunId>
+                        <test.duration>${constantLoadTimeInSeconds}</test.duration>
+                        <test.targetConcurrency>${targetConcurrency}</test.targetConcurrency>
+                        <test.rampUpTime>${rampupTimeInSeconds}</test.rampUpTime>
+                        <test.systemUnderTest>${systemUnderTest}</test.systemUnderTest>
+                        <test.testEnvironment>${testEnvironment}</test.testEnvironment>
+                        <test.protocol>{{sutConfig.protocol}}</test.protocol>
+                        <test.server_name>{{sutConfig.hostname}}</test.server_name>
+                        <test.port>{{sutConfig.port}}</test.port>
+                    </propertiesUser>
+                    <jmeterExtensions>{{#jmeterConfig.jmeterExtensions}}
+                        <artifact>{{.}}</artifact>{{/jmeterConfig.jmeterExtensions}}
+                    </jmeterExtensions>
+                    <downloadExtensionDependencies>false</downloadExtensionDependencies>
+                    <overrideRootLogLevel>info</overrideRootLogLevel>
+{{> pom.scheduler.config.xml }}
+                </configuration>
+{{> pom.plugin.dependencies.xml }}
+            </plugin>
+            

@@ -5,6 +5,10 @@ inputs:
     description: 'Who to greet'
     required: true
     default: 'World'
+  config: # id of input
+    description: 'Perfana Configuration file'
+    required: true
+    default: '.perfana.yml'
 outputs:
   time: # id of output
     description: 'The time we greeted you'

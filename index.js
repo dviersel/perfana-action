@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const exec = require('@actions/exec');
+const hb = require('handlebars');
 const github = require('@actions/github');
 
 try {
@@ -14,13 +15,14 @@ try {
 
     console.log("Let's do this!")
 
-    console.log(exec.exec("ls -la /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin"))
+    // console.log(exec.exec("ls -la /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin"))
+    console.log(exec.exec("ls -la"))
 
-    // console.log(exec.exec("pwd"))
-
-    // exec.exec("chmod 755 /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/*")
     console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.kt"))
     console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.rt"))
+
+    const configFile = core.getInput('config');
+    console.log(`Config file: ${configFile}`);
 
 } catch (error) {
     core.setFailed(error.message);
