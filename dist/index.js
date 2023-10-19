@@ -31262,13 +31262,16 @@ try {
 
     console.log("Let's do this!")
 
-    console.log(exec.exec("ls -la /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin"))
+    const actionVersion = core.getInput('action-version');
+    console.log(`action-version: ${actionVersion}`);
+
+    console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
 
     // console.log(exec.exec("pwd"))
 
-    // exec.exec("chmod 755 /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/*")
-    console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.kt"))
-    console.log(exec.exec("/home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin/perfana-cli.rt"))
+    // exec.exec("chmod 755 /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/*")
+    console.log(exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.kt`))
+    console.log(exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.rt`))
 
 } catch (error) {
     core.setFailed(error.message);
