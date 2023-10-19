@@ -24,6 +24,7 @@ try {
 
     const actionVersion = "v0.1-alpha-0"
     const actionPath = `/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/`
+    console.log("Action path: " + actionPath)
     console.log(exec.exec(` [[ -f ${actionPath}/perfana-cli.kt ]] && ${actionPath}/perfana-cli.kt || echo "Cannot find:\n${actionPath}/perfana-cli.kt"`))
     console.log(exec.exec(` [[ -f ${actionPath}/perfana-cli.rt ]] && ${actionPath}/perfana-cli.rt || echo "Cannot find:\n${actionPath}/perfana-cli.rt"`))
 
