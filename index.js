@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const exec = require('@actions/exec');
-const hb = require('handlebars');
 const github = require('@actions/github');
 
 try {
@@ -15,10 +14,13 @@ try {
 
     console.log("Let's do this!")
 
-    // console.log(exec.exec("ls -la /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin"))
-    console.log(exec.exec("ls -la"))
+    // const result = github.context.action
+    // console.log(result)
 
-    console.log(github.context.action)
+    // console.log(exec.exec("ls -la /home/runner/work/_actions/dviersel/perfana-action/v0.1-alpha/dist/bin"))
+    const result2 = exec.exec("ls -al")
+    console.log(result2)
+
 
     const actionVersion = "v0.1-alpha-0"
     const actionPath = `/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/`
