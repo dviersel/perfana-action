@@ -14,8 +14,8 @@ try {
 
     console.log("Let's do this!")
 
-    const actionVersion = core.getInput('action-version');
-    console.log(`action-version: ${actionVersion}`);
+    console.log(`summary: ${core.summary}`);
+
 
     // console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
 
