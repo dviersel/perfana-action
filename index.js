@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const exec = require('@actions/exec');
 const github = require('@actions/github');
+const llist = require('./functions.js');
 
 try {
     // `who-to-greet` input defined in action metadata file
@@ -17,7 +18,7 @@ try {
     console.log('action: ', github.context.action)
 
     console.log('What\'s on disk?')
-    let result = list("ls -al main/")
+    let result = llist("ls -al main/")
     console.log(result)
 
     // console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))

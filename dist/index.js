@@ -1,6 +1,24 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 1212:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+__nccwpck_require__.r(__webpack_exports__);
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   "llist": () => (/* binding */ llist)
+/* harmony export */ });
+const exec = __nccwpck_require__(8574);
+async function llist(param) {
+    let a = await exec.exec(param)
+    return a
+}
+
+
+
+/***/ }),
+
 /***/ 7728:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -31238,6 +31256,34 @@ module.exports = require("zlib");
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
@@ -31249,6 +31295,7 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(1150);
 const exec = __nccwpck_require__(8574);
 const github = __nccwpck_require__(6528);
+const llist = __nccwpck_require__(1212);
 
 try {
     // `who-to-greet` input defined in action metadata file
@@ -31265,7 +31312,7 @@ try {
     console.log('action: ', github.context.action)
 
     console.log('What\'s on disk?')
-    let result = list("ls -al main/")
+    let result = llist("ls -al main/")
     console.log(result)
 
     // console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
