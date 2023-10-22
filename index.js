@@ -20,13 +20,14 @@ try {
     let result = exec.exec("ls -al main/")
     console.log(result)
 
-    // console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
+    const actionVersion = 'v0.1-alpha-0'
+    console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
 
     // console.log(exec.exec("pwd"))
 
-    // exec.exec("chmod 755 /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/*")
-    // console.log(exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.kt`))
-    // console.log(exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.rt`))
+    exec.exec("chmod 755 /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/*")
+    console.log(exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.kt`))
+    console.log(exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.rt`))
 
 } catch (error) {
     core.setFailed(error.message);
