@@ -31271,12 +31271,17 @@ try {
 
 
     const actionVersion = 'v0.1-alpha-0'
-    console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
+    exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`).then((result) => {
+        console.log(result)
+    })
 
-    // console.log(exec.exec("pwd"))
+    exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.kt`).then((result) => {
+        console.log(result)
+    })
 
-    console.log(exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.kt`))
-    console.log(exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.rt`))
+    exec.exec(`/home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin/perfana-cli.rt`).then((result) => {
+        console.log(result)
+    })
 
 } catch (error) {
     core.setFailed(error.message);
