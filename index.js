@@ -15,7 +15,11 @@ try {
     console.log("Let's do this!")
 
     console.log('action: ', github.context.action)
-    console.log(exec.exec("ls -al main/"))
+
+    console.log('What\'s on disk?')
+    let result = list("ls -al main/")
+    console.log(result)
+
     // console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
 
     // console.log(exec.exec("pwd"))
