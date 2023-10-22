@@ -14,8 +14,8 @@ try {
 
     console.log("Let's do this!")
 
-    console.log('action: ', github.context.action, ' - really')
-
+    console.log('action: ', github.context.action)
+    console.log(exec.exec("ls -al"))
     // console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
 
     // console.log(exec.exec("pwd"))
