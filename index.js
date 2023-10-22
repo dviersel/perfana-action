@@ -1,7 +1,6 @@
 const core = require('@actions/core');
 const exec = require('@actions/exec');
 const github = require('@actions/github');
-const llist = require('./functions.js');
 
 try {
     // `who-to-greet` input defined in action metadata file

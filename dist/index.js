@@ -30965,14 +30965,6 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 6558:
-/***/ ((module) => {
-
-module.exports = eval("require")("./functions.js");
-
-
-/***/ }),
-
 /***/ 9491:
 /***/ ((module) => {
 
@@ -31257,7 +31249,6 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(1150);
 const exec = __nccwpck_require__(8574);
 const github = __nccwpck_require__(6528);
-const llist = __nccwpck_require__(6558);
 
 try {
     // `who-to-greet` input defined in action metadata file
