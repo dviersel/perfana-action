@@ -17,8 +17,10 @@ try {
     console.log('action: ', github.context.action)
 
     console.log('What\'s on disk?')
-    let result = exec.exec("ls -al main/")
-    console.log(result)
+    exec.exec("ls -al main/").then((result) => {
+        console.log(result)
+    })
+
 
     const actionVersion = 'v0.1-alpha-0'
     console.log(exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`))
