@@ -1,5 +1,5 @@
 name: 'perfana-action'
-description: 'Greet someone and record the time'
+description: 'Run a performance test'
 inputs:
   who-to-greet:  # id of input
     description: 'Who to greet'
@@ -8,10 +8,13 @@ inputs:
   config: # id of input
     description: 'Perfana Configuration file'
     required: true
-    default: '.perfana.yml'
+    default: 'perfana.yaml'
 outputs:
   time: # id of output
     description: 'The time we greeted you'
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.config }}
