@@ -22,6 +22,7 @@ try {
     })
 
 
+
     const actionVersion = 'v0.1-alpha-0'
     exec.exec(`ls -la /home/runner/work/_actions/dviersel/perfana-action/${actionVersion}/dist/bin`).then((result) => {
         console.log(result)
